@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command:
+      npm run dev -o
+    ports:
+      - "${FORWARD_APP_PORT:-3001}:3001"
+    volumes:
+      - type: bind
+        source: .
+        target: /app
+
+      - type: bind
+        source: ./nuxt.config.ts
+        target: /app/nuxt.config.ts
+        
+      - type: volume
+        target: /app/node_modules
